@@ -8,4 +8,5 @@ export const text = {
   age: "Od lat ",
   duration: " minut",
   space: "|",
+  reservePlace: "Zarezerwuj miejsce",
 };

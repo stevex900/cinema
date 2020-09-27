@@ -1,4 +1,9 @@
 import React, { useState } from "react";
+import { connect } from "react-redux";
+import { NavLinkContainer as NavLink } from "../../components/button/button.styles";
+import { text } from "../../text/text";
+import { selectReservationItem } from "../../redux/reservation/reservation.selector";
+import { placeSelectionAction } from "../../redux/reservation/reservation.actions";
 import {
   MainContainer,
   PrimaryContainer,
@@ -8,20 +13,18 @@ import {
   Seats,
   SeatsContainer,
 } from "./cinemaHall.styles";
-const CinemaHall = ({ row, seats }) => {
-  const [choose, setChoose] = useState(false);
-
+const CinemaHall = ({ row, seats, placeSelectionAction }) => {
   const handleChoosePlace = (bindValue, e) => {
+    const summary = {
+      row: row * 1 + 1,
+      seatNumber: parseInt(e.target.getAttribute("data-index") * 1 + 1),
+    };
     if (bindValue === 0) {
-      console.log("wolne miejsce");
+      placeSelectionAction(summary);
     } else if (bindValue === 1) {
-      console.log("zajete miejsce");
     }
-    console.log("Rząd " + row);
-
-    console.log("Miejsce numer: " + e.target.getAttribute("data-index"));
   };
-  const i = (e) => {};
+
   const seatItem = seats.map((item, index) => (
     <SeatsContainer>
       {item === 1 ? (
@@ -30,9 +33,7 @@ const CinemaHall = ({ row, seats }) => {
           data-index={index}
           onClick={handleChoosePlace.bind(this, item)}
           red
-        >
-          {/* {seats} */}
-        </Seats>
+        ></Seats>
       ) : (
         <Seats
           key={index}
@@ -50,4 +51,7 @@ const CinemaHall = ({ row, seats }) => {
   );
 };
 
-export default CinemaHall;
+const mapDispatchToProps = (dispatch) => ({
+  placeSelectionAction: (item) => dispatch(placeSelectionAction(item)),
+});
+export default connect(null, mapDispatchToProps)(CinemaHall);

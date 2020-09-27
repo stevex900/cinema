@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from "react";
 import CinemaHall from "../../components/cinema-hall/CinemaHall";
 import {
+  selectShowingId,
+  selectSeats,
+  selectReservationItem,
+} from "../../redux/reservation/reservation.selector";
+import { connect } from "react-redux";
+import {
   MainContainer,
   PrimaryContainer,
   SecondaryContainer,
@@ -8,12 +14,17 @@ import {
   Row,
   Seats,
 } from "./placeSelection.styles";
-const PlaceSelection = () => {
+import {
+  NavLinkContainer as NavLink,
+  Button,
+} from "../../components/button/button.styles";
+import { text } from "../../text/text";
+const PlaceSelection = ({ showingId, seats, selectedMovie }) => {
   const [place, setPlace] = useState([]);
   useEffect(() => {
-    const API =
+    const APIGet =
       "https://candidatetest.arpideas.pl/api/Reservation/GetSeatsStatus/{showingId}";
-    fetch(API)
+    fetch(APIGet)
       .then((response) => {
         if (response.ok) {
           return response;
@@ -26,15 +37,43 @@ const PlaceSelection = () => {
         setPlace(places);
       });
   }, []);
-  const handleGet = () => {
-    // console.log(place);
+  let newPost = {
+    showingId,
+    seats,
+  };
+
+  const handleReserve = () => {
+    const APIPost =
+      "https://candidatetest.arpideas.pl/api/Reservation/ReserveSeats";
+    fetch(APIPost, {
+      method: "post",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newPost),
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response;
+        }
+        throw Error("Unable to download data");
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("post Request response", data);
+      });
   };
   const cinemaHall = place.map((item) => <CinemaHall {...item} />);
   return (
-    <MainContainer onClick={handleGet}>
+    <MainContainer>
       <PrimaryContainer>{cinemaHall}</PrimaryContainer>
+      <Button onClick={handleReserve}>{text.reservePlace}</Button>
+      <NavLink to={"/choose-movie"}>{text.back}</NavLink>
+      <NavLink to={"/"}>{text.next}</NavLink>
     </MainContainer>
   );
 };
-
-export default PlaceSelection;
+const mapStateToProps = (state) => ({
+  showingId: selectShowingId(state),
+  seats: selectSeats(state),
+  selectedMovie: selectReservationItem(state),
+});
+export default connect(mapStateToProps)(PlaceSelection);

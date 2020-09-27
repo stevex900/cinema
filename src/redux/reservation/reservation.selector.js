@@ -5,3 +5,12 @@ export const selectReservationItem = createSelector(
   [selectReservation],
   (reservation) => reservation.selectedMovie
 );
+export const selectShowingId = createSelector(
+  [selectReservation],
+  (reservation) => reservation.showingId
+);
+
+export const selectSeats = createSelector(
+  [selectReservation],
+  (reservation) => reservation.seats
+);

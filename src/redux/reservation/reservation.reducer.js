@@ -23,6 +23,11 @@ export const reservationReducer = (state = INITIAL_STATE, action) => {
         ...state,
         selectedMovie: action.payload,
       };
+    case ActionTypes.PLACE_SELECTION:
+      return {
+        ...state,
+        seats: action.payload,
+      };
     default:
       return state;
   }
