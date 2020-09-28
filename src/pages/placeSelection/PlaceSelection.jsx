@@ -37,17 +37,30 @@ const PlaceSelection = ({ showingId, seats, selectedMovie }) => {
         setPlace(places);
       });
   }, []);
+  // let newPost = {
+  //   showingId,
+  //   seats,
+  // };
+
   let newPost = {
-    showingId,
-    seats,
+    showingId: "388fd55a-1013-4713-b713-d62ae0ff0169",
+    seats: [
+      {
+        row: 0,
+        seatNumber: 0,
+      },
+    ],
   };
 
   const handleReserve = () => {
     const APIPost =
       "https://candidatetest.arpideas.pl/api/Reservation/ReserveSeats";
     fetch(APIPost, {
-      method: "post",
-      headers: { "Content-Type": "application/json" },
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
       body: JSON.stringify(newPost),
     })
       .then((response) => {

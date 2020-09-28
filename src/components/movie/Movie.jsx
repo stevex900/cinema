@@ -11,6 +11,8 @@ import {
   Title,
   Categories,
   CategoriesContainer,
+  ShowingDate,
+  ShowingDateContainer,
 } from "./movie.styles";
 import { P, H2 } from "../../fonts/fonts.styles";
 import { Button } from "../../components/button/button.styles";
@@ -21,13 +23,25 @@ const Movie = ({
   categories,
   ageLimit,
   duration,
+  showings,
+
   chooseMovieAction,
   selectedMovieNameAction,
 }) => {
-  const handleGet = () => {
-    chooseMovieAction(id.toString());
+  const handleGet = (showingId, showingDate) => {
+    chooseMovieAction(showingId.toString());
     selectedMovieNameAction(title);
+    console.log(showingId, showingDate);
   };
+
+  const showingsList = showings.map((showing) =>
+    showing.showingDates.map((item) => (
+      <ShowingDate onClick={() => handleGet(item.id, item.date)}>
+        {item.date}
+      </ShowingDate>
+    ))
+  );
+
   const categoriesList = categories.map((categorie) => <P cat>{categorie}</P>);
   return (
     <MainContainer>
@@ -55,9 +69,8 @@ const Movie = ({
               </P>
             </ItemContainer>
           </Categories>
+          <ShowingDateContainer>{showingsList}</ShowingDateContainer>
         </CategoriesContainer>
-
-        <Button onClick={handleGet}>Wybierz</Button>
       </Container>
     </MainContainer>
   );

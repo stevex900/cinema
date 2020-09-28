@@ -16,3 +16,5 @@ export const Categories = styled.div`
   display: flex;
 `;
 export const CategoriesContainer = styled.div``;
+export const ShowingDate = styled.div``;
+export const ShowingDateContainer = styled.div``;
