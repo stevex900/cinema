@@ -43,11 +43,11 @@ const PlaceSelection = ({ showingId, seats, selectedMovie }) => {
   // };
 
   let newPost = {
-    showingId: "388fd55a-1013-4713-b713-d62ae0ff0169",
+    showingId: showingId,
     seats: [
       {
-        row: 0,
-        seatNumber: 0,
+        row: seats.row,
+        seatNumber: seats.seatNumber,
       },
     ],
   };
