@@ -21,7 +21,7 @@ import {
 import { text } from "../../text/text";
 const PlaceSelection = ({ showingId, seats, selectedMovie }) => {
   const [place, setPlace] = useState([]);
-  const [token, setToken] = useState("asdasd");
+  const [token, setToken] = useState("");
   const [payment, setPayment] = useState();
   useEffect(() => {
     if (showingId) {
@@ -79,8 +79,8 @@ const PlaceSelection = ({ showingId, seats, selectedMovie }) => {
   };
   const handlePayment = () => {
     const APIPost =
-      // "https://candidatetest.arpideas.pl/api/Payment/PayForReservations";
-      "https://candidatetest.arpideas.pl/api/Reservation/ReserveSeats";
+      "https://candidatetest.arpideas.pl/api/Payment/PayForReservations";
+
     fetch(APIPost, {
       method: "POST",
       headers: {
@@ -95,10 +95,10 @@ const PlaceSelection = ({ showingId, seats, selectedMovie }) => {
         }
         throw Error("Unable to download data");
       })
-      .then((response) => response.json())
+      // .then((response) => response.json())
       .then((data) => {
         const paymentInfo = data;
-        setPayment(payment);
+        setPayment(paymentInfo);
         console.log("payment response", paymentInfo);
       });
   };
