@@ -9,4 +9,5 @@ export const text = {
   duration: " minut",
   space: "|",
   reservePlace: "Zarezerwuj miejsce",
+  pay: "Zapłać",
 };

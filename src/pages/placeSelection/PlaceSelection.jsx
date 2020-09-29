@@ -21,28 +21,27 @@ import {
 import { text } from "../../text/text";
 const PlaceSelection = ({ showingId, seats, selectedMovie }) => {
   const [place, setPlace] = useState([]);
+  const [token, setToken] = useState("asdasd");
+  const [payment, setPayment] = useState();
   useEffect(() => {
-    const APIGet =
-      "https://candidatetest.arpideas.pl/api/Reservation/GetSeatsStatus/{showingId}";
-    fetch(APIGet)
-      .then((response) => {
-        if (response.ok) {
-          return response;
-        }
-        throw Error("Unable to download data");
-      })
-      .then((response) => response.json())
-      .then((data) => {
-        const places = [...data];
-        setPlace(places);
-      });
+    if (showingId) {
+      const APIGet = `https://candidatetest.arpideas.pl/api/Reservation/GetSeatsStatus/${showingId}`;
+      fetch(APIGet)
+        .then((response) => {
+          if (response.ok) {
+            return response;
+          }
+          throw Error("Unable to download data");
+        })
+        .then((response) => response.json())
+        .then((data) => {
+          const places = [...data];
+          setPlace(places);
+        });
+    }
   }, []);
-  // let newPost = {
-  //   showingId,
-  //   seats,
-  // };
 
-  let newPost = {
+  const newPost = {
     showingId: showingId,
     seats: [
       {
@@ -51,7 +50,9 @@ const PlaceSelection = ({ showingId, seats, selectedMovie }) => {
       },
     ],
   };
-
+  const newPayment = {
+    reservationToken: token,
+  };
   const handleReserve = () => {
     const APIPost =
       "https://candidatetest.arpideas.pl/api/Reservation/ReserveSeats";
@@ -71,14 +72,46 @@ const PlaceSelection = ({ showingId, seats, selectedMovie }) => {
       })
       .then((response) => response.json())
       .then((data) => {
-        console.log("post Request response", data);
+        const token = data;
+        setToken(token);
+        console.log("Token: ", token);
       });
+  };
+  const handlePayment = () => {
+    const APIPost =
+      // "https://candidatetest.arpideas.pl/api/Payment/PayForReservations";
+      "https://candidatetest.arpideas.pl/api/Reservation/ReserveSeats";
+    fetch(APIPost, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newPayment),
+    })
+      .then((response) => {
+        if (response.ok) {
+          return response;
+        }
+        throw Error("Unable to download data");
+      })
+      .then((response) => response.json())
+      .then((data) => {
+        const paymentInfo = data;
+        setPayment(payment);
+        console.log("payment response", paymentInfo);
+      });
+  };
+  const handleTest = () => {
+    console.log(token);
   };
   const cinemaHall = place.map((item) => <CinemaHall {...item} />);
   return (
     <MainContainer>
       <PrimaryContainer>{cinemaHall}</PrimaryContainer>
       <Button onClick={handleReserve}>{text.reservePlace}</Button>
+      <Button onClick={handlePayment}>{text.pay}</Button>
+      <Button onClick={handleTest}>Test</Button>
       <NavLink to={"/choose-movie"}>{text.back}</NavLink>
       <NavLink to={"/"}>{text.next}</NavLink>
     </MainContainer>

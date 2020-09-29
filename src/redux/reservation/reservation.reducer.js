@@ -1,11 +1,11 @@
 import { ActionTypes } from "./reservation.types";
 
 const INITIAL_STATE = {
-  showingId: "string",
+  showingId: "",
   seats: [
     {
-      row: 0,
-      seatNumber: 0,
+      row: null,
+      seatNumber: null,
     },
   ],
   selectedMovie: "",
