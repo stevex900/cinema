@@ -29,16 +29,16 @@ const CinemaHall = ({ row, seats, placeSelectionAction }) => {
     } else if (bindValue === 1) {
     }
   };
-  const color = (bindValue) => {
+  const color = (bindValue, index, e) => {
     if (bindValue === 1) {
       return "red";
     }
-    if (bindValue === 0 && active === true) {
+    if (bindValue === 0) {
       return "green";
     }
-    if (bindValue === 0 && active === false) {
-      return "blue";
-    }
+    // if (index === parseInt(e.target.getAttribute("data-index"))) {
+    //   return "blue";
+    // }
   };
   const seatItem = seats.map((item, index) => (
     <SeatsContainer>
@@ -46,9 +46,8 @@ const CinemaHall = ({ row, seats, placeSelectionAction }) => {
         key={index}
         data-index={index}
         onClick={handleChoosePlace.bind(this, item)}
-        color={color(item)}
+        color={color(item, index)}
         name="square full"
-        size="big"
       />
     </SeatsContainer>
     // <SeatsContainer>

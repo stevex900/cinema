@@ -4,6 +4,7 @@ const INITIAL_STATE = {
   showingId: "",
   seats: "",
   selectedMovie: "",
+  initialSeats: "",
 };
 
 export const reservationReducer = (state = INITIAL_STATE, action) => {
