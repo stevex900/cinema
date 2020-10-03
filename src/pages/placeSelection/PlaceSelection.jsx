@@ -95,23 +95,21 @@ const PlaceSelection = ({ showingId, seats, selectedMovie }) => {
         }
         throw Error("Unable to download data");
       })
-      // .then((response) => response.json())
+
       .then((data) => {
         const paymentInfo = data;
         setPayment(paymentInfo);
         console.log("payment response", paymentInfo);
       });
   };
-  const handleTest = () => {
-    console.log(token);
-  };
+
   const cinemaHall = place.map((item) => <CinemaHall {...item} />);
   return (
     <MainContainer>
       <PrimaryContainer>{cinemaHall}</PrimaryContainer>
       <Button onClick={handleReserve}>{text.reservePlace}</Button>
       <Button onClick={handlePayment}>{text.pay}</Button>
-      <Button onClick={handleTest}>Test</Button>
+
       <NavLink to={"/choose-movie"}>{text.back}</NavLink>
       <NavLink to={"/"}>{text.next}</NavLink>
     </MainContainer>

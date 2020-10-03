@@ -4,6 +4,7 @@ import { NavLinkContainer as NavLink } from "../../components/button/button.styl
 import { text } from "../../text/text";
 import { selectReservationItem } from "../../redux/reservation/reservation.selector";
 import { placeSelectionAction } from "../../redux/reservation/reservation.actions";
+import { Icon } from "semantic-ui-react";
 import {
   MainContainer,
   PrimaryContainer,
@@ -14,6 +15,8 @@ import {
   SeatsContainer,
 } from "./cinemaHall.styles";
 const CinemaHall = ({ row, seats, placeSelectionAction }) => {
+  const [active, setActive] = useState(true);
+
   const handleChoosePlace = (bindValue, e) => {
     const summary = {
       row: row * 1 + 1,
@@ -21,28 +24,51 @@ const CinemaHall = ({ row, seats, placeSelectionAction }) => {
     };
     if (bindValue === 0) {
       placeSelectionAction(summary);
+
+      setActive(!active);
     } else if (bindValue === 1) {
     }
   };
-
+  const color = (bindValue) => {
+    if (bindValue === 1) {
+      return "red";
+    }
+    if (bindValue === 0 && active === true) {
+      return "green";
+    }
+    if (bindValue === 0 && active === false) {
+      return "blue";
+    }
+  };
   const seatItem = seats.map((item, index) => (
     <SeatsContainer>
-      {item === 1 ? (
-        <Seats
-          key={index}
-          data-index={index}
-          onClick={handleChoosePlace.bind(this, item)}
-          red
-        ></Seats>
-      ) : (
-        <Seats
-          key={index}
-          data-index={index}
-          green
-          onClick={handleChoosePlace.bind(this, item)}
-        ></Seats>
-      )}
+      <Icon
+        key={index}
+        data-index={index}
+        onClick={handleChoosePlace.bind(this, item)}
+        color={color(item)}
+        name="square full"
+        size="big"
+      />
     </SeatsContainer>
+    // <SeatsContainer>
+    //   {item === 1 ? (
+    //     <Seats
+    //       key={index}
+    //       data-index={index}
+    //       onClick={handleChoosePlace.bind(this, item)}
+    //       red
+    //     ></Seats>
+    //   ) : (
+    //     <Seats
+    //       key={index}
+    //       data-index={index}
+    //       green={active}
+    //       blue={active === false}
+    //       onClick={handleChoosePlace.bind(this, item)}
+    //     ></Seats>
+    //   )}
+    // </SeatsContainer>
   ));
   return (
     <MainContainer>

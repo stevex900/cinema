@@ -9,7 +9,7 @@ export const SecondaryContainer = styled.div`
 export const TertiaryContainer = styled.div``;
 export const QuaternaryContainer = styled.div`
   position: fixed;
-  right: 800px;
+  right: 600px;
   top: 50%;
   transform: translateY(-50%);
 `;

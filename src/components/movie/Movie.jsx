@@ -1,9 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
+import { Button, Icon } from "semantic-ui-react";
 import {
   chooseMovieAction,
   selectedMovieNameAction,
 } from "../../redux/reservation/reservation.actions";
+
 import {
   MainContainer,
   ItemContainer,
@@ -15,7 +17,7 @@ import {
   ShowingDateContainer,
 } from "./movie.styles";
 import { P, H2 } from "../../fonts/fonts.styles";
-import { Button } from "../../components/button/button.styles";
+// import { Button } from "../../components/button/button.styles";
 import { text } from "../../text/text";
 const Movie = ({
   id,
@@ -36,9 +38,17 @@ const Movie = ({
 
   const showingsList = showings.map((showing) =>
     showing.showingDates.map((item) => (
-      <ShowingDate onClick={() => handleGet(item.id, item.date)}>
-        {item.date}
-      </ShowingDate>
+      <Button
+        color="black"
+        size="masive"
+        animated
+        onClick={() => handleGet(item.id, item.date)}
+      >
+        <Button.Content visible> {item.date}</Button.Content>
+        <Button.Content hidden>
+          <Icon name="cloud download" size="big" />
+        </Button.Content>
+      </Button>
     ))
   );
 

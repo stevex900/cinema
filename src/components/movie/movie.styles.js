@@ -16,5 +16,13 @@ export const Categories = styled.div`
   display: flex;
 `;
 export const CategoriesContainer = styled.div``;
-export const ShowingDate = styled.div``;
-export const ShowingDateContainer = styled.div``;
+export const ShowingDate = styled.div`
+  background-color: black;
+  color: white;
+  margin-left: 4px;
+  cursor: pointer;
+`;
+export const ShowingDateContainer = styled.div`
+  display: flex;
+  max-width: 50%;
+`;

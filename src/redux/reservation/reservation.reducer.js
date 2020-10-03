@@ -2,12 +2,7 @@ import { ActionTypes } from "./reservation.types";
 
 const INITIAL_STATE = {
   showingId: "",
-  seats: [
-    {
-      row: null,
-      seatNumber: null,
-    },
-  ],
+  seats: "",
   selectedMovie: "",
 };
 
@@ -26,7 +21,7 @@ export const reservationReducer = (state = INITIAL_STATE, action) => {
     case ActionTypes.PLACE_SELECTION:
       return {
         ...state,
-        seats: action.payload,
+        seats: [...state.seats, action.payload],
       };
     default:
       return state;

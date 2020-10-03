@@ -12,7 +12,11 @@ export const Row = styled.div`
   display: flex;
   flex-direction: row;
 `;
-export const SeatsContainer = styled.div``;
+export const SeatsContainer = styled.div`
+  /* &:nth-child(3) {
+    border: 5px solid yellow !important;
+  } */
+`;
 export const Seats = styled.div`
   background-color: white;
   border: 2px solid black;
@@ -20,6 +24,7 @@ export const Seats = styled.div`
   max-width: 40px;
   min-height: 40px;
   max-height: 40px;
+
   ${({ green }) =>
     green &&
     css`
@@ -29,5 +34,11 @@ export const Seats = styled.div`
     red &&
     css`
       background-color: red;
+    `}
+
+    ${({ blue }) =>
+    blue &&
+    css`
+      background-color: blue;
     `}
 `;

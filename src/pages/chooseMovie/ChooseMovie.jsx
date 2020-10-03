@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { selectReservationItem } from "../../redux/reservation/reservation.selector";
 import { connect } from "react-redux";
-
+import { Button } from "semantic-ui-react";
 import {
   MainContainer,
   PrimaryContainer,
@@ -10,10 +10,7 @@ import {
   TertiaryContainer,
   QuaternaryContainer,
 } from "./chooseMovie.styles";
-import {
-  Button,
-  NavLinkContainer as NavLink,
-} from "../../components/button/button.styles";
+import { NavLinkContainer as NavLink } from "../../components/button/button.styles";
 import { text } from "../../text/text";
 import Movie from "../../components/movie/Movie";
 import { H1, H2, H3, P } from "../../fonts/fonts.styles";
